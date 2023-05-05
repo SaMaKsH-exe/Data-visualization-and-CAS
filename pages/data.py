@@ -25,10 +25,9 @@ st.sidebar.header("Plese Filter here")
 #select function
 chart_type = st.sidebar.selectbox('Select chart type:', ['line', 'area', 'bar', 'scatter'])
 agg_func = st.sidebar.selectbox('Select aggregation function:', ['sum', 'mean', 'median'])
-
+submit = st.sidebar.button('Submit')
 if not df.empty:
     #x and y axis columns
-
     x_axis = st.sidebar.selectbox('Select x-axis column', df.columns)
     y_axis = st.sidebar.multiselect('Select y-axis columns', df.select_dtypes(include='number').columns.unique())
 
@@ -45,7 +44,7 @@ if not df.empty:
                                 options = df.select_dtypes(include='number').columns.unique()
                                 )
 
-    submit = st.sidebar.button('Submit')
+   
 
 #change the dataframe so it treats x and y axis as sperate 
 def display_scattered_chart(df,chart_type,x_axis,y_axis):
