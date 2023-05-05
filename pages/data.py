@@ -74,9 +74,6 @@ def display_scattered_chart(df,chart_type,x_axis,y_axis):
         # Display the chart using streamlit
         st.altair_chart(chart, use_container_width=True)
 
-
-    
-
 def display_Avg(columns_to_mean_value):
     # Create a list to hold column values
     column_values = []
@@ -99,17 +96,17 @@ def display_Avg(columns_to_mean_value):
   
 
 
-    if submit: #run te function
-        display_Avg(columns_to_mean_value)
-    
-        display_scattered_chart(df,chart_type,x_axis,y_axis)
+if submit: #run te function
+    display_Avg(columns_to_mean_value)
 
-    
-    #show 
-    st.dataframe(df)
+    display_scattered_chart(df,chart_type,x_axis,y_axis)
 
-    #summary of dataframe using describe method from panda
-    stats = df.describe()
-    st.header("Summary of Dataset")
-    st.write(stats)
+
+#show 
+st.dataframe(df)
+
+#summary of dataframe using describe method from panda
+stats = df.describe()
+st.header("Summary of Dataset")
+st.write(stats)
 
