@@ -25,7 +25,8 @@ st.sidebar.header("Plese Filter here")
 #select function
 chart_type = st.sidebar.selectbox('Select chart type:', ['line', 'area', 'bar', 'scatter'])
 agg_func = st.sidebar.selectbox('Select aggregation function:', ['sum', 'mean', 'median'])
-submit = st.sidebar.button('Submit')
+
+
 if not df.empty:
     #x and y axis columns
     x_axis = st.sidebar.selectbox('Select x-axis column', df.columns)
@@ -44,7 +45,7 @@ if not df.empty:
                                 options = df.select_dtypes(include='number').columns.unique()
                                 )
 
-   
+submit = st.sidebar.button('Submit')
 
 #change the dataframe so it treats x and y axis as sperate 
 def display_scattered_chart(df,chart_type,x_axis,y_axis):
@@ -92,7 +93,6 @@ def display_Avg(columns_to_mean_value):
             if index < len(column_values):
                 columns[col].metric(label=columns_to_mean_value[index], value=column_values[index])
 
-  
 
 
 if submit: #run te function
@@ -101,11 +101,12 @@ if submit: #run te function
     display_scattered_chart(df,chart_type,x_axis,y_axis)
 
 
-#show 
-st.dataframe(df)
+    #show 
 
-#summary of dataframe using describe method from panda
-stats = df.describe()
-st.header("Summary of Dataset")
-st.write(stats)
+    st.dataframe(df)
+
+    #summary of dataframe using describe method from panda
+    stats = df.describe()
+    st.header("Summary of Dataset")
+    st.write(stats)
 
