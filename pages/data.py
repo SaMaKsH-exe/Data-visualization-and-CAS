@@ -5,8 +5,8 @@ import matplotlib.pyplot as pl
 import altair as alt
 
 #reads an excel file 
-df = pd.read_excel(r'C:\Users\samak\Downloads\supermarkt_sales.xlsx')
-
+#df = pd.read_excel(r'C:\Users\samak\Downloads\supermarkt_sales.xlsx')
+df=[]
 
 #page layout 
 st.set_page_config(page_title = "Visulesering af Data ",
@@ -18,16 +18,13 @@ uploaded_file = st.file_uploader("Choose an data file")
 
 #if excel file is not empty df is new drag and dropped excel file
 if uploaded_file is not None:
-    df= pd.read_excel(uploaded_file)    
-
+    df= pd.read_excel(uploaded_file)
 
 st.sidebar.header("Plese Filter here")
 
 #select function
 chart_type = st.sidebar.selectbox('Select chart type:', ['line', 'area', 'bar', 'scatter'])
 agg_func = st.sidebar.selectbox('Select aggregation function:', ['sum', 'mean', 'median'])
-
-
 
 #x and y axis columns
 x_axis = st.sidebar.selectbox('Select x-axis column', df.columns)
