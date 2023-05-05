@@ -6,7 +6,7 @@ import altair as alt
 
 #reads an excel file 
 #df = pd.read_excel(r'C:\Users\samak\Downloads\supermarkt_sales.xlsx')
-df=[]
+df=pd.DataFrame()
 
 #page layout 
 st.set_page_config(page_title = "Visulesering af Data ",
@@ -26,24 +26,26 @@ st.sidebar.header("Plese Filter here")
 chart_type = st.sidebar.selectbox('Select chart type:', ['line', 'area', 'bar', 'scatter'])
 agg_func = st.sidebar.selectbox('Select aggregation function:', ['sum', 'mean', 'median'])
 
-#x and y axis columns
-x_axis = st.sidebar.selectbox('Select x-axis column', df.columns)
-y_axis = st.sidebar.multiselect('Select y-axis columns', df.select_dtypes(include='number').columns.unique())
+if not df.empty:
+    #x and y axis columns
 
-# Apply the aggregation function to the y-axis columns
-if agg_func == 'sum':
-    y_data = df[y_axis].sum()
-elif agg_func == 'mean':
-    y_data = df[y_axis].mean()
-elif agg_func == 'median':
-    y_data = df[y_axis].median()
+    x_axis = st.sidebar.selectbox('Select x-axis column', df.columns)
+    y_axis = st.sidebar.multiselect('Select y-axis columns', df.select_dtypes(include='number').columns.unique())
 
-#Find average of columns that include numbers 
-columns_to_mean_value=st.sidebar.multiselect("Select the columns to do average",
-                            options = df.select_dtypes(include='number').columns.unique()
-                            )
+    # Apply the aggregation function to the y-axis columns
+    if agg_func == 'sum':
+        y_data = df[y_axis].sum()
+    elif agg_func == 'mean':
+        y_data = df[y_axis].mean()
+    elif agg_func == 'median':
+        y_data = df[y_axis].median()
 
-submit = st.sidebar.button('Submit')
+    #Find average of columns that include numbers 
+    columns_to_mean_value=st.sidebar.multiselect("Select the columns to do average",
+                                options = df.select_dtypes(include='number').columns.unique()
+                                )
+
+    submit = st.sidebar.button('Submit')
 
 #change the dataframe so it treats x and y axis as sperate 
 def display_scattered_chart(df,chart_type,x_axis,y_axis):
@@ -97,17 +99,17 @@ def display_Avg(columns_to_mean_value):
   
 
 
-if submit: #run te function
-    display_Avg(columns_to_mean_value)
-   
-    display_scattered_chart(df,chart_type,x_axis,y_axis)
+    if submit: #run te function
+        display_Avg(columns_to_mean_value)
+    
+        display_scattered_chart(df,chart_type,x_axis,y_axis)
 
     
-#show 
-st.dataframe(df)
+    #show 
+    st.dataframe(df)
 
-#summary of dataframe using describe method from panda
-stats = df.describe()
-st.header("Summary of Dataset")
-st.write(stats)
+    #summary of dataframe using describe method from panda
+    stats = df.describe()
+    st.header("Summary of Dataset")
+    st.write(stats)
 
